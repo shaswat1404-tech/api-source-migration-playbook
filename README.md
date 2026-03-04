@@ -45,15 +45,7 @@ A series of calls were held with the RM API team to:
 - Agree timelines for RM-side deliverables
 
 ### Granularity Validation
-Granularity was validated not just at date level but across all required reporting dimensions:
-
-| Dimension | Verified |
-|---|---|
-| Region | ✓ |
-| Division | ✓ |
-| Portfolio | ✓ |
-| Property | ✓ |
-| Other breakdowns | Case by case |
+Granularity was validated not just at date level but across all required reporting dimensions like region, division, property etc.
 
 Where RM did not natively support a required breakdown, options were assessed: request the API admin to add it, design a workaround using available fields, or escalate to business stakeholders for a decision.
 
@@ -125,27 +117,27 @@ The new RM-based platform was built clean — not patched onto the existing MA a
                            ▼
 ┌─────────────────────────────────────────────────────────┐
 │                   INGESTION LAYER                       │
-│      Azure Function App (Durable Functions)            │
-│      Same orchestrator → activity routing pattern      │
-│      ADF triggers parallel Function App instances      │
-│      per source / load type                            │
-│                           │                            │
-│                           ▼                            │
-│              Azure Blob Storage                        │
-│              (staging / landing layer)                 │
+│      Azure Function App (Durable Functions)             │
+│      Same orchestrator → activity routing pattern       │
+│      ADF triggers parallel Function App instances       │
+│      per source / load type                             │
+│                           │                             │
+│                           ▼                             │
+│              Azure Blob Storage                         │
+│              (staging / landing layer)                  │
 └──────────────────────────┬──────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────┐
 │                  MEDALLION LAYERS                       │
-│               (Azure Databricks)                       │
-│                                                        │
-│  BRONZE  ── Raw ingested data from Blob               │
-│     │                                                  │
-│  SILVER  ── Cleansed, mapped, joined                  │
-│             Client MDM mapping tables applied         │
-│     │                                                  │
-│  GOLD    ── Aggregated KPIs, reporting-ready models   │
+│               (Azure Databricks)                        │
+│                                                         │
+│  BRONZE  ── Raw ingested data from Blob                 │
+│     │                                                   │
+│  SILVER  ── Cleansed, mapped, joined                    │
+│             Client MDM mapping tables applied           │
+│     │                                                   │
+│  GOLD    ── Aggregated KPIs, reporting-ready models     │
 └─────────────────────────────────────────────────────────┘
                            │
               Azure Data Factory (orchestration)
